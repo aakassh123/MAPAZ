@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://mapazhotel.com/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mapazhotel.com/images/hero-building-sunset-clean.jpg</image:loc>
+      <image:title>MAPAZ HOTEL Luxury Sunset Facade</image:title>
+      <image:caption>Premier 5-Star Luxury Hotel in Gorakhpur, Uttar Pradesh</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mapazhotel.com/images/maharaja-suite.jpg</image:loc>
+      <image:title>MAPAZ Hotel Maharaja Presidential Suite</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mapazhotel.com/images/sheesh-mahal-banquet.jpg</image:loc>
+      <image:title>Sheesh Mahal Grand Banquet Hall</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mapazhotel.com/images/ramgarh-tal-lake.jpg</image:loc>
+      <image:title>Ramgarh Tal Sunset Nauka Vihar Boating Excursion</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#rooms</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#banquet</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#restaurant</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#experiences</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#gallery</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#about</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://mapazhotel.com/#contact</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+</urlset>
