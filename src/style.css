@@ -51,12 +51,17 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -64,7 +69,9 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-page);
   line-height: 1.65;
-  overflow-x: hidden;
+  overflow-x: clip;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 img {
@@ -76,6 +83,13 @@ img {
 button, input, select, textarea {
   font-family: inherit;
   font-size: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button, a, [role="button"], summary {
+  touch-action: manipulation;
 }
 
 .visually-hidden {
@@ -210,6 +224,9 @@ a {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(197, 155, 39, 0.18);
   box-shadow: 0 4px 20px rgba(20, 18, 16, 0.04);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
   transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1),
               background-color var(--transition-smooth),
               box-shadow var(--transition-smooth);
@@ -233,7 +250,7 @@ a {
   height: 76px;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 max(28px, env(safe-area-inset-right, 28px)) 0 max(28px, env(safe-area-inset-left, 28px));
   gap: 24px;
 }
 
@@ -4852,11 +4869,16 @@ a {
     justify-content: space-between;
     align-items: stretch;
     padding: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
     transform: translateX(105%);
     transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 9999;
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .nav-menu.open {
@@ -4979,7 +5001,7 @@ a {
   .drawer-footer {
     display: flex;
     flex-direction: column;
-    padding: 20px 22px;
+    padding: 20px 22px max(20px, calc(20px + env(safe-area-inset-bottom, 0px)));
     border-top: 1px solid rgba(197, 155, 39, 0.2);
     background: rgba(0, 0, 0, 0.38);
     gap: 14px;
@@ -6147,9 +6169,15 @@ a {
   box-shadow: 0 4px 14px rgba(197, 155, 39, 0.35);
 }
 
+/* ==========================================================================
+   CROSS-DEVICE RESPONSIVE SUITE: DESKTOP, LAPTOP, TABLET (iPads) & iOS MOBILE
+   ========================================================================== */
+
+/* Tablet & Compact Laptop Breakpoint (1024px & Below) */
 @media (max-width: 1024px) {
   .experiences-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
   }
 
   .planner-result-grid {
@@ -6159,27 +6187,99 @@ a {
   .security-grid {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 768px) {
-  /* Prevent iOS Safari auto-zoom on input focus */
-  input, select, textarea {
-    font-size: 16px !important;
+  /* Booking Strip Form on Tablets: Clean 2-column layout with full-width action button */
+  .booking-strip-form {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
 
-  /* Universal touch friendliness */
+  .booking-strip-form .form-action {
+    grid-column: 1 / -1;
+  }
+
+  /* 3-column navigation for Horizon stages on tablets */
+  .rooms-step-nav,
+  .banquet-step-nav,
+  .dining-step-nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Sized horizon stage cards for iPad & tablet screens */
+  .room-stage-card,
+  .banquet-stage-card,
+  .exp-stage-card,
+  .dining-stage-card {
+    max-width: 88%;
+    margin-left: -44%;
+  }
+
+  .container {
+    padding: 0 24px;
+  }
+}
+
+/* Smartphone & Mobile Devices Breakpoint (768px & Below) */
+@media (max-width: 768px) {
+  /* Prevent iOS Safari auto-zoom on input focus (requires >= 16px) */
+  input, select, textarea, .form-input, .booking-strip-select {
+    font-size: 16px !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  /* iOS date inputs reset */
+  input[type="date"] {
+    min-height: 44px;
+    line-height: normal;
+    background-color: #fbf9f6;
+  }
+  input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+  }
+
+  /* Custom dropdown chevron for iOS Safari */
+  select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c59b27' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 13px;
+    padding-right: 36px !important;
+  }
+
+  /* Universal touch friendliness & 300ms tap delay elimination */
   * {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Safe Area & Bottom Sticky VIP Concierge Bar */
+  button, a, [role="button"], .rooms-step-tab, .exp-step-tab, .planner-pill, .rooms-arrow-btn, .orbit-arrow-btn {
+    touch-action: manipulation;
+  }
+
+  /* Safe Area & Bottom Sticky VIP Concierge Bar for iOS (iPhone Notch & Home Indicator) */
   .mobile-sticky-vip-bar {
     display: grid;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9990;
+    background: rgba(18, 14, 11, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(197, 155, 39, 0.35);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 8px 12px;
     padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    padding-left: max(10px, env(safe-area-inset-left, 0px));
+    padding-right: max(10px, env(safe-area-inset-right, 0px));
+    gap: 8px;
   }
 
   body {
-    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   }
 
   /* Curated Experiences Horizontal Touch Strip */
@@ -6253,14 +6353,18 @@ a {
     padding: 10px 12px;
     font-size: 0.82rem;
     text-align: center;
+    border-radius: var(--radius-sm);
   }
 
-  /* Full Screen 3D Tour Modal on Mobile */
+  /* Full Screen 3D Tour Modal on Mobile with iOS Notch Safe Area */
   .modal-box-3d {
     width: 100vw;
     height: 100vh;
     height: 100dvh;
     border-radius: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overscroll-behavior: contain;
   }
 
   .viewport-3d-header {
@@ -6277,13 +6381,14 @@ a {
   }
 
   .preset-btn {
-    padding: 5px 10px;
-    font-size: 0.72rem;
+    padding: 6px 12px;
+    font-size: 0.74rem;
+    min-height: 36px;
   }
 
   /* Booking & Reservation Modals Mobile Optimization */
   .booking-modal-box {
-    width: calc(100vw - 24px) !important;
+    width: calc(100vw - 20px) !important;
     max-width: 440px !important;
     max-height: 90vh !important;
     max-height: 90dvh !important;
@@ -6291,37 +6396,103 @@ a {
     border-radius: 18px !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain;
+  }
+
+  .room-modal-container {
+    width: calc(100vw - 20px);
+    max-height: 90dvh;
+    border-radius: 18px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Touch Targets: minimum 44px for Apple Human Interface compliance */
+  .drawer-close,
+  .modal-close-btn,
+  .rooms-arrow-btn,
+  .orbit-arrow-btn {
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
-/* Extra Small Phones (<= 380px: iPhone SE, Galaxy A-series) */
-@media (max-width: 380px) {
-  .hero-sunset-title {
-    font-size: 2.15rem !important;
-  }
-
-  .hero-sunset-trio {
-    font-size: 0.68rem;
-    gap: 4px;
+/* Compact Smartphones (480px & Below) */
+@media (max-width: 480px) {
+  .header-inner {
+    height: 64px;
+    padding: 0 max(14px, env(safe-area-inset-left, 14px));
+    gap: 8px;
   }
 
   .header-brand-img {
-    height: 32px;
-    max-width: 120px;
+    height: 34px;
+    max-width: 130px;
   }
 
   .btn-header-reserve {
-    padding: 6px 12px !important;
-    font-size: 0.7rem !important;
+    padding: 7px 14px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .mobile-bar-btn {
+    padding: 8px 6px;
+    font-size: 0.72rem;
+    gap: 4px;
+  }
+
+  .room-floating-deck {
+    bottom: 12px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .circular-thumb-wrapper {
+    height: 200px;
+  }
+
+  .dining-thumb-box {
+    height: 190px;
+  }
+}
+
+/* Extra Small Phones (380px & Below: iPhone SE, Galaxy A-series) */
+@media (max-width: 380px) {
+  .hero-sunset-title {
+    font-size: clamp(1.9rem, 7.2vw, 2.3rem) !important;
+    line-height: 1.16 !important;
+  }
+
+  .hero-sunset-trio {
+    font-size: 0.65rem;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .header-brand-img {
+    height: 30px;
+    max-width: 110px;
+  }
+
+  .btn-header-reserve {
+    padding: 5px 10px !important;
+    font-size: 0.68rem !important;
   }
 
   .room-deck-name {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
+  }
+
+  .room-deck-actions {
+    flex-direction: column;
+    gap: 6px;
   }
 
   .room-deck-actions .btn {
-    padding: 8px 8px;
-    font-size: 0.74rem;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.72rem;
   }
 
   .planner-pill {
@@ -6330,6 +6501,15 @@ a {
 
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+
+  .mobile-bar-btn {
+    font-size: 0.66rem;
+    padding: 6px 3px;
+  }
+  
+  .mobile-bar-btn span {
+    font-size: 0.66rem;
   }
 }
 
