@@ -2361,25 +2361,94 @@ a {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .rooms-step-nav {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding: 4px 4px 10px 4px;
+    margin-bottom: 14px;
+    scrollbar-width: none;
+  }
+  .rooms-step-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .rooms-step-tab {
+    flex: 0 0 auto;
+    min-width: 150px;
+    max-width: 185px;
+    padding: 10px 14px;
+    scroll-snap-align: start;
+    border-radius: 12px;
   }
   .rooms-sub-controller {
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 4px;
+    margin-bottom: 14px;
+  }
+  .rooms-status-hint {
+    font-size: 0.68rem;
+    order: 1;
   }
   .rooms-nav-actions {
-    width: 100%;
-    justify-content: center;
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
+  .rooms-autoplay-toggle {
+    padding: 5px 10px !important;
+    font-size: 0.72rem !important;
+  }
+  .rooms-arrow-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .rooms-sub-controller .rooms-progress-track {
+    order: 3;
+    width: 100%;
+    flex: 0 0 100%;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 640px) {
   .rooms-stage-viewport {
-    min-height: 540px;
+    min-height: 520px;
   }
   .rooms-stage-track {
-    height: 540px;
+    height: 520px;
   }
+  .room-stage-card {
+    max-width: calc(100% - 20px);
+    width: calc(100% - 20px);
+    margin-left: calc(-1 * (100% - 20px) / 2);
+    border-radius: 20px;
+  }
+  .room-tag-badge {
+    top: 12px;
+    left: 14px;
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+  .room-floating-tariff {
+    top: 12px;
+    right: 14px;
+    padding: 4px 10px;
+  }
+  .room-floating-tariff .tariff-price {
+    font-size: 0.85rem;
+  }
+  .room-floating-tariff .tariff-perk {
+    display: none;
+  }
+  /* Show only top 2 key highlights as a sleek, non-intrusive pill row */
   .room-side-features {
     position: absolute;
     width: auto;
@@ -2389,51 +2458,81 @@ a {
     display: flex;
     flex-direction: row;
     gap: 8px;
+    z-index: 5;
   }
   .room-side-features.features-left {
     top: auto;
-    bottom: 125px;
+    bottom: 96px;
     left: 12px;
     right: 12px;
   }
   .room-side-features.features-right {
-    top: auto;
-    bottom: 65px;
-    left: 12px;
-    right: 12px;
+    display: none;
   }
   .room-feature-card {
     flex: 1;
-    padding: 7px 9px;
-    gap: 8px;
+    padding: 6px 10px;
+    gap: 6px;
+    border-radius: 12px;
+    background: rgba(14, 11, 8, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(197, 155, 39, 0.35);
   }
   .room-crest-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
   }
   .feat-title {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .feat-desc {
     display: none;
   }
-  .room-floating-tariff {
-    padding: 4px 10px;
-  }
-  .room-floating-tariff .tariff-perk {
-    display: none;
-  }
   .room-floating-deck {
     bottom: 10px;
-    border-radius: 14px;
-    padding: 6px 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 20px);
+    border-radius: 16px;
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .room-deck-identity {
+    text-align: left;
+    gap: 1px;
+  }
+  .room-deck-identity .room-deck-eyebrow {
+    font-size: 0.62rem;
   }
   .room-deck-identity .room-deck-sub {
     display: none;
   }
   .room-deck-name {
-    font-size: 0.95rem;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+  .room-deck-specs {
+    display: none;
+  }
+  .room-deck-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+  .room-deck-actions .btn {
+    flex: 1;
+    padding: 9px 10px;
+    font-size: 0.78rem;
+    justify-content: center;
+    min-height: 40px;
+    white-space: nowrap;
   }
   .room-stage-card.pos-right,
   .room-stage-card.pos-next {
@@ -3866,22 +3965,70 @@ a {
     justify-content: center;
   }
   .banquet-step-nav {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding: 4px 4px 10px 4px;
+    margin-bottom: 14px;
+    scrollbar-width: none;
+  }
+  .banquet-step-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .banquet-step-tab {
+    flex: 0 0 auto;
+    min-width: 150px;
+    max-width: 185px;
+    padding: 10px 14px;
+    scroll-snap-align: start;
+    border-radius: 12px;
   }
   .banquet-sub-controller {
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 4px;
+    margin-bottom: 14px;
+  }
+  .banquet-status-hint {
+    font-size: 0.68rem;
+    order: 1;
   }
   .banquet-nav-actions {
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .banquet-autoplay-toggle {
+    padding: 5px 10px !important;
+    font-size: 0.72rem !important;
+  }
+  .banquet-arrow-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .banquet-sub-controller .banquet-progress-track {
+    order: 3;
     width: 100%;
-    justify-content: center;
+    flex: 0 0 100%;
+    margin-top: 4px;
   }
   .banquet-stage-viewport {
     min-height: 520px;
   }
   .banquet-stage-track {
     height: 520px;
+  }
+  .banquet-stage-card {
+    max-width: calc(100% - 20px);
+    width: calc(100% - 20px);
+    margin-left: calc(-1 * (100% - 20px) / 2);
+    border-radius: 20px;
   }
   .stage-side-benefits {
     position: absolute;
@@ -3892,37 +4039,51 @@ a {
     display: flex;
     flex-direction: row;
     gap: 8px;
+    z-index: 5;
   }
   .stage-side-benefits.benefits-left {
     top: auto;
-    bottom: 84px;
+    bottom: 60px;
     left: 12px;
     right: 12px;
   }
   .stage-side-benefits.benefits-right {
-    top: auto;
-    bottom: 16px;
-    left: 12px;
-    right: 12px;
+    display: none;
   }
   .benefit-item-card {
     flex: 1;
-    padding: 8px 10px;
-    gap: 8px;
+    padding: 6px 10px;
+    gap: 6px;
+    border-radius: 12px;
+    background: rgba(14, 11, 8, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(197, 155, 39, 0.35);
   }
   .benefit-icon-badge {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
   }
   .benefit-title {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .benefit-desc {
     display: none;
   }
   .stage-floating-quote {
-    display: none;
+    bottom: 12px;
+  }
+  .stage-floating-quote span {
+    font-size: 0.76rem;
+    padding: 5px 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90vw;
   }
   .banquet-stage-card.pos-right,
   .banquet-stage-card.pos-next {
@@ -6001,45 +6162,175 @@ a {
 }
 
 @media (max-width: 768px) {
-  .experiences-grid {
-    grid-template-columns: 1fr;
+  /* Prevent iOS Safari auto-zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
   }
 
+  /* Universal touch friendliness */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Safe Area & Bottom Sticky VIP Concierge Bar */
   .mobile-sticky-vip-bar {
     display: grid;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
   }
 
   body {
-    padding-bottom: 60px;
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
   }
 
+  /* Curated Experiences Horizontal Touch Strip */
+  .exp-step-nav {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding: 4px 4px 10px 4px;
+    margin-bottom: 14px;
+    scrollbar-width: none;
+  }
+  .exp-step-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .exp-step-tab {
+    flex: 0 0 auto;
+    min-width: 150px;
+    max-width: 185px;
+    padding: 10px 14px;
+    scroll-snap-align: start;
+    border-radius: 12px;
+  }
+  .exp-sub-controller {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 4px;
+    margin-bottom: 14px;
+  }
+  .exp-sub-controller .rooms-progress-track {
+    order: 3;
+    width: 100%;
+    flex: 0 0 100%;
+    margin-top: 4px;
+  }
+
+  /* Curated Experiences Stage Cards on Mobile */
+  .exp-stage-viewport {
+    min-height: 520px;
+    height: 520px;
+  }
+  .exp-stage-track {
+    height: 520px;
+  }
+  .exp-stage-card {
+    max-width: calc(100% - 20px);
+    width: calc(100% - 20px);
+    margin-left: calc(-1 * (100% - 20px) / 2);
+    border-radius: 20px;
+  }
+
+  /* Royal Banquet Planner on Mobile */
   .banquet-planner-card {
-    padding: 24px 18px;
+    padding: 22px 16px;
+    border-radius: 16px;
   }
 
   .planner-pills {
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .planner-pill {
-    width: 100%;
+    flex: 1 1 calc(50% - 6px);
+    min-width: 120px;
+    padding: 10px 12px;
+    font-size: 0.82rem;
     text-align: center;
   }
 
+  /* Full Screen 3D Tour Modal on Mobile */
   .modal-box-3d {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     border-radius: 0;
   }
 
   .viewport-3d-header {
     flex-direction: column;
     gap: 8px;
+    padding: 12px 16px;
   }
 
   .hud-presets-bar {
     flex-wrap: wrap;
     border-radius: var(--radius-md);
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .preset-btn {
+    padding: 5px 10px;
+    font-size: 0.72rem;
+  }
+
+  /* Booking & Reservation Modals Mobile Optimization */
+  .booking-modal-box {
+    width: calc(100vw - 24px) !important;
+    max-width: 440px !important;
+    max-height: 90vh !important;
+    max-height: 90dvh !important;
+    padding: 22px 18px !important;
+    border-radius: 18px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 }
+
+/* Extra Small Phones (<= 380px: iPhone SE, Galaxy A-series) */
+@media (max-width: 380px) {
+  .hero-sunset-title {
+    font-size: 2.15rem !important;
+  }
+
+  .hero-sunset-trio {
+    font-size: 0.68rem;
+    gap: 4px;
+  }
+
+  .header-brand-img {
+    height: 32px;
+    max-width: 120px;
+  }
+
+  .btn-header-reserve {
+    padding: 6px 12px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .room-deck-name {
+    font-size: 0.92rem;
+  }
+
+  .room-deck-actions .btn {
+    padding: 8px 8px;
+    font-size: 0.74rem;
+  }
+
+  .planner-pill {
+    flex: 1 1 100%;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
